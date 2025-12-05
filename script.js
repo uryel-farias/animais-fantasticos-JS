@@ -1,30 +1,77 @@
-let imagens = document.querySelectorAll(".animais-lista li img");
-console.log(imagens);
+function initTabNav() {
+    const tabMenu = document.querySelectorAll('.js-tabmenu li');
+    const tabContent = document.querySelectorAll('.js-tabcontent section');
+    tabContent[0].classList.add('atiivo');
+    
+    if(tabContent.length && tabMenu.length) {
+      tabContent[0].classList.add('ativo');
+      
+      function activeTab(index) {
+        tabContent.forEach((content) => {
+          content.classList.remove('ativo');
+        });
+        tabContent[index].classList.add('ativo');
+      }
+      
+      tabMenu.forEach((itemMenu, index) => {
+        itemMenu.addEventListener('click', () => {
+          activeTab(index);
+        });
+      });
+    }
 
-let imagemEspecifica = document.querySelectorAll("img");
-console.log(imagemEspecifica);
-
-imagemEspecifica.forEach((item) => {
-    console.log(item.attributes.src.value)
-})
-
-const tabMenu = document.querySelectorAll('.js-tabmenu li');
-const tabContent = document.querySelectorAll('.js-tabcontent section');
-tabContent[0].classList.add('atiivo');
-
-if(tabContent.length && tabMenu.length) {
-  tabContent[0].classList.add('ativo');
-  
-  function activeTab(index) {
-    tabContent.forEach((content) => {
-      content.classList.remove('ativo');
-    });
-    tabContent[index].classList.add('ativo');
-  }
-  
-  tabMenu.forEach((itemMenu, index) => {
-    itemMenu.addEventListener('click', () => {
-      activeTab(index);
-    });
-  });
 }
+
+function initAccordion() {
+const accordionList = document.querySelectorAll('.js-accordion dt');
+const ativoClass = 'ativo';
+
+if(accordionList.length) {
+    accordionList[0].classList.add(ativoClass);
+    accordionList[0].nextElementSibling.classList.add(ativoClass);
+    
+    function activeAccordion() {
+        this.classList.toggle(ativoClass)
+        this.nextElementSibling.classList.toggle(ativoClass)
+    }
+    
+    accordionList.forEach((item) => {
+        item.addEventListener('click', activeAccordion)
+    })
+}
+}
+
+function scrollToSection(event) {
+    event.preventDefault();
+    const href = event.currentTarget.getAttribute('href');
+    const section = document.querySelector(href);
+//    const topo = section.offsetTop;  ** usando no mwtodo scrollTo
+    section.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+    });
+
+//    window.scrollTo({
+//        top: topo,
+//        behavior: 'smooth',
+//
+//    })
+}
+
+function initScrollSuave() {
+    
+    const linksInternos = document.querySelectorAll('.js-menu a[href^="#"]');
+    console.log(linksInternos)
+
+    linksInternos.forEach((link) => {
+        link.addEventListener('click', scrollToSection);
+    })
+}
+
+
+initScrollSuave();
+initTabNav();
+initAccordion();
+
+
+

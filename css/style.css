@@ -134,6 +134,10 @@ body {
   color: #E54;
 }
 
+.faq-lista dt:hover {
+  cursor: pointer;
+}
+
 .faq-lista dt::before {
   content: '';
   display: inline-block;
@@ -228,5 +232,31 @@ body {
   to {
     opacity: 1;
     transform: translate3d(0px, 0, 0);
+  }
+}
+
+.js-accordion dd {
+  display: none;
+}
+
+.js-accordion dt::after {
+  content: '    ⯆';
+}
+
+.js-accordion dt.ativo::after {
+  content: '    ⯅';
+}
+
+.js-accordion dd.ativo {
+  display: block;
+  animation: slideDown .5s forwards;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
